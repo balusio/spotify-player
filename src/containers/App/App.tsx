@@ -1,13 +1,15 @@
-import React from "react";
+import React from 'react';
+import { AuthProvider } from 'context/AuthContext';
+
 import './App.scss';
+import Login from 'components/Login/Login';
 
 const App = (): JSX.Element => {
-
-  return(
-    <div className="container" data-testid="app-container">
-      <h1>HELLO</h1>
-    </div>
-  )
-}
+  return (
+    <AuthProvider>
+      <Login />
+    </AuthProvider>
+  );
+};
 
 export default App;

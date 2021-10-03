@@ -1,1 +1,6 @@
 @import 'modern-normalize.css';
+@import 'variables.scss';
+
+body {
+  background-color: $black-color;
+}

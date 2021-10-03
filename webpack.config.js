@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require('path');
+const DotEnv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
@@ -12,7 +13,9 @@ module.exports = {
     sourceMapFilename: '[name].[contenthash].js.map',
   },
   devServer: {
-    // static: path.join(__dirname, "dist"),
+    static: {
+      publicPath: path.join(__dirname, 'dist'),
+    },
     historyApiFallback: true,
     compress: true,
     port: process.env.PORT | 4200,
@@ -21,6 +24,7 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
       containers: path.resolve(__dirname, 'src/containers/'),
+      context: path.resolve(__dirname, 'src/context/'),
       components: path.resolve(__dirname, 'src/components/'),
       assets: path.resolve(__dirname, 'src/assets/'),
       utils: path.resolve(__dirname, 'src/utils/'),
@@ -52,5 +56,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
+    new DotEnv(),
   ],
 };

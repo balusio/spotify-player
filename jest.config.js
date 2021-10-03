@@ -24,5 +24,6 @@ module.exports = {
     "^utils/(.*)$": "<rootDir>/src/utils/$1",
     "^containers/(.*)$": "<rootDir>/src/containers/$1",
     "^core/(.*)$": "<rootDir>/src/core/$1",
+    "^context/(.*)$": "<rootDir>/src/context/$1",
   }
 }

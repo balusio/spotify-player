@@ -1,12 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from 'containers/App/App';
+
 import './core/styles/main.scss';
 
-// eslint-disable-next-line no-console
-console.log(
-  "%c BALU WAS HERE",
-  "color: #FFFFFF; font-style: bold; background-color: #000000;padding: 20px"
-);
+const Root = (): JSX.Element => {
+  // eslint-disable-next-line no-console
+  console.log(
+    '%c BALU WAS HERE',
+    'color: #FFFFFF; font-style: bold; background-color: #000000;padding: 20px'
+  );
 
-ReactDOM.render(<App />, document.getElementById("app"));
+  return <App />;
+};
+ReactDOM.render(<Root />, document.getElementById('app'));
