@@ -1,9 +1,10 @@
 import React from "react";
+import './App.scss';
 
 const App = (): JSX.Element => {
 
   return(
-    <div data-testid="app-container">
+    <div className="container" data-testid="app-container">
       <h1>HELLO</h1>
     </div>
   )
