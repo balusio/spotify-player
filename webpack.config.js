@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
@@ -8,12 +7,12 @@ module.exports = {
   target: 'web',
   devtool: 'source-map',
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
-    sourceMapFilename: "[name].js.map"
+    sourceMapFilename: '[name].[contenthash].js.map',
   },
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    // static: path.join(__dirname, "dist"),
     historyApiFallback: true,
     compress: true,
     port: process.env.PORT | 4200,
@@ -52,7 +51,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-    }), 
-    new Dotenv()
-  ]
+    }),
+  ],
 };

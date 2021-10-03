@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": false,
     "jsx": "react",
-    "sourceMap": true
+    // "sourceMap": true
   },
   "exclude": ["node_modules/", "./src/__mocks__", "jest.config.js"],
   "include": ["src", "jest","./src/*.ts"]
