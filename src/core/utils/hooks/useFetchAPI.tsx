@@ -10,16 +10,23 @@ const useFetch = (fetchProps: FetchProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { url, options } = fetchProps;
+  const { headers, method } = options;
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
+      const myHeaders = new Headers({ ...headers });
+      console.log(myHeaders.has('Authorization'), 'AUTH'); // returns true, 'HEADERS');
       try {
         const resp = await fetch(url, {
-          ...options,
-          mode: 'no-cors',
+          method: method,
+          headers: myHeaders,
+          mode: 'cors',
         });
-        const response = await resp.json();
 
+        console.log(resp);
+        const response = await resp.json();
+        console.log(response);
         setData(response);
       } catch (e) {
         setData(null);

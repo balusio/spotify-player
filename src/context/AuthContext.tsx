@@ -1,16 +1,9 @@
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useReducer,
-} from 'react';
-import { CLIENT_ID } from 'core/constants';
-import useFetch from 'core/utils/hooks/useFetchAPI';
+import React, { createContext, ReactNode, useContext, useReducer } from 'react';
 
 interface UserState {
   isLoggedIn: boolean;
-  userId: string | undefined;
+  error: boolean | undefined;
+  accessToken: string | undefined;
 }
 
 enum AuthActions {
@@ -42,14 +35,14 @@ const AuthReducer = (state: UserState, action: AuthActions): UserState => {
       return {
         ...state,
         isLoggedIn: true,
-        userId: '1',
+        accessToken: '1',
       };
     }
     case 'logout': {
       return {
         ...state,
         isLoggedIn: false,
-        userId: undefined,
+        accessToken: undefined,
       };
     }
     default: {
@@ -59,9 +52,38 @@ const AuthReducer = (state: UserState, action: AuthActions): UserState => {
 };
 
 const AuthProvider = ({ children }: UserProviderProps): JSX.Element => {
+  const path = window.location.pathname.substr(1);
+  const queryString = window.location.hash;
+  console.log(window.location.search);
+
+  const urlParams = new URLSearchParams(queryString);
+
+  const urlToken = urlParams.get('#access_token');
+  const stateQuery = urlParams.get('state');
+  const errorCode = urlParams.get('error');
+
+  console.log({
+    urlToken,
+    stateQuery,
+    errorCode,
+  });
+  let isLoggedIn = false;
+  let accessToken = undefined;
+  let error = undefined;
+
+  if (urlToken && path === 'logged' && stateQuery === '123456') {
+    accessToken = urlToken;
+    isLoggedIn = true;
+  }
+
+  if (errorCode && errorCode === 'access_denied' && stateQuery === '123456') {
+    error = true;
+  }
+
   const [state, dispatch] = useReducer(AuthReducer, {
-    isLoggedIn: false,
-    userId: undefined,
+    isLoggedIn: isLoggedIn,
+    error: error,
+    accessToken: accessToken,
   });
   // const { isLoading, data, error } = useFetch({
   //   url: `https://accounts.spotify.com/authorize?response_type=code
