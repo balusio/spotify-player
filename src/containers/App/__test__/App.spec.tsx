@@ -1,12 +1,39 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { AuthProvider } from 'context/AuthContext';
+
 import App from '../App';
+xdescribe('App Container', () => {
+  const { location } = window;
 
-import '@testing-library/jest-dom';
+  beforeAll(() => {
+    window.location = {
+      ...window.location,
+      hash: '#access_token=testToken&state=123456',
+      href: 'http://nowhere.dev:4200/',
+      pathname: '/logged',
+    };
+    window.location.assign(
+      'http://nowhere.dev:4200/logged#access_token=testToken&state=123456'
+    );
 
-describe('App Container', () => {
+    console.log(window.location.href, ' href');
+  });
+
+  afterAll(() => {
+    window.location = location;
+  });
+
   it('should healthcheck the app container', () => {
-    const { container, debug } = render(<App />);
+    console.log(window.location.href, ' href');
+    const { container, debug } = render(
+      <>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </>
+    );
+    debug();
     expect(
       container.querySelector(`[data-testid="app-container"]`)
     ).toBeInTheDocument();

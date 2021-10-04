@@ -45,7 +45,7 @@ const CurrentlyPlaying = (): JSX.Element => {
   }, [data]);
 
   if (error) {
-    console.log(error, '=== ERRROR= ');
+    return <h1>Error on Playing</h1>;
   }
   const { song, image, artist, album, isPlaying } = currentSong;
   return (

@@ -54,7 +54,7 @@ const AuthReducer = (state: UserState, action: AuthActions): UserState => {
 const AuthProvider = ({ children }: UserProviderProps): JSX.Element => {
   const path = window.location.pathname.substr(1);
   const queryString = window.location.hash;
-  console.log(window.location.search);
+  console.log(queryString);
 
   const urlParams = new URLSearchParams(queryString);
 
@@ -66,6 +66,8 @@ const AuthProvider = ({ children }: UserProviderProps): JSX.Element => {
     urlToken,
     stateQuery,
     errorCode,
+    path,
+    queryString,
   });
   let isLoggedIn = false;
   let accessToken = undefined;
@@ -85,18 +87,7 @@ const AuthProvider = ({ children }: UserProviderProps): JSX.Element => {
     error: error,
     accessToken: accessToken,
   });
-  // const { isLoading, data, error } = useFetch({
-  //   url: `https://accounts.spotify.com/authorize?response_type=code
-  //   &client_id${CLIENT_ID}&scope=ser-read-private,user-read-email`,
-  //   options: {
-  //     method: 'GET',
-  //   },
-  // });
-  // useEffect(() => {
-  //   console.log(isLoading);
-  //   console.log(data);
-  //   console.log(error);
-  // }, [data]);
+
   const value = { state, dispatch };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
