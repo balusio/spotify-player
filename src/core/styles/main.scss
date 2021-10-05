@@ -3,6 +3,29 @@
 
 body {
   background-color: $black-color;
-  font-family: 'Cabin', sans-serif;
+  font-family: $font-family;
   color: $white-color;
+  font-size: 16px;
+}
+
+.button {
+  text-transform: uppercase;
+  line-height: 1.2rem;
+  font-weight: 700;
+  border-radius: 500px;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  transition: all 0.1s;
+}
+
+.button__principal {
+  background-color: $primary-color;
+  color: $white-color;
+  &:hover {
+    background-color: $primary-color-hover;
+    transform: scale(1.04);
+  }
+  &:visited {
+    color: inherit;
+  }
 }

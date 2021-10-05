@@ -1,4 +1,5 @@
 import { useAuthContext } from 'context/AuthContext';
+import { SPOTIFY_API } from 'core/constants';
 import useFetch from 'core/utils/hooks/useFetchAPI';
 import React, { useEffect, useState } from 'react';
 
@@ -23,7 +24,7 @@ const CurrentlyPlaying = (): JSX.Element => {
   });
 
   const { isLoading, data, error } = useFetch({
-    url: 'https://api.spotify.com/v1/me/player/currently-playing',
+    url: `${SPOTIFY_API}me/player/currently-playing`,
     options: {
       method: 'GET',
       headers: {
@@ -34,7 +35,6 @@ const CurrentlyPlaying = (): JSX.Element => {
   });
 
   useEffect(() => {
-    console.log(data?.item.album.images[2]);
     setCurrentSong({
       song: data?.item?.name,
       image: data?.item.album.images[2].url,

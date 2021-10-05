@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from 'containers/App/App';
 
 import './core/styles/main.scss';
-import { AuthProvider } from 'context/AuthContext';
 
 const Root = (): JSX.Element => {
   // eslint-disable-next-line no-console
@@ -12,10 +11,6 @@ const Root = (): JSX.Element => {
     'color: #FFFFFF; font-style: bold; background-color: #000000;padding: 20px'
   );
 
-  return (
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  );
+  return <App />;
 };
 ReactDOM.render(<Root />, document.getElementById('app'));

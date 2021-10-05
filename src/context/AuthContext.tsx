@@ -1,5 +1,4 @@
 import React, { createContext, ReactNode, useContext, useReducer } from 'react';
-
 interface UserState {
   isLoggedIn: boolean;
   error: boolean | undefined;
@@ -17,7 +16,7 @@ type UserContext = {
   state: UserState;
   dispatch: Dispatch;
 };
-interface UserProviderProps {
+interface UserProviderProps extends UserState {
   children: ReactNode;
 }
 
@@ -26,7 +25,6 @@ interface UserProviderProps {
  * is initialized, also triggers the login action with the API call using the auth credentials
  * @see https://kentcdodds.com/blog/how-to-use-react-context-effectively
  */
-
 const AuthContext = createContext<UserContext | undefined>(undefined);
 
 const AuthReducer = (state: UserState, action: AuthActions): UserState => {
@@ -51,37 +49,19 @@ const AuthReducer = (state: UserState, action: AuthActions): UserState => {
   }
 };
 
-const AuthProvider = ({ children }: UserProviderProps): JSX.Element => {
-  const path = window.location.pathname.substr(1);
-  const queryString = window.location.hash;
-  console.log(queryString);
-
-  const urlParams = new URLSearchParams(queryString);
-
-  const urlToken = urlParams.get('#access_token');
-  const stateQuery = urlParams.get('state');
-  const errorCode = urlParams.get('error');
-
-  console.log({
-    urlToken,
-    stateQuery,
-    errorCode,
-    path,
-    queryString,
-  });
-  let isLoggedIn = false;
-  let accessToken = undefined;
-  let error = undefined;
-
-  if (urlToken && path === 'logged' && stateQuery === '123456') {
-    accessToken = urlToken;
-    isLoggedIn = true;
-  }
-
-  if (errorCode && errorCode === 'access_denied' && stateQuery === '123456') {
-    error = true;
-  }
-
+/**
+ * spotify handles a callback once the user is logged in,
+ * once the page load if the user is comming redirected from spotify and
+ * succesfully logged in it should get the params from the URL as queryStrings.
+ * The auth method for spotify is "Implicit Grant Flow"
+ * @see https://developer.spotify.com/documentation/general/guides/authorization-guide/
+ */
+const AuthProvider = ({
+  children,
+  isLoggedIn,
+  error,
+  accessToken,
+}: UserProviderProps): JSX.Element => {
   const [state, dispatch] = useReducer(AuthReducer, {
     isLoggedIn: isLoggedIn,
     error: error,
