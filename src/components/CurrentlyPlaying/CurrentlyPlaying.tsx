@@ -48,6 +48,9 @@ const CurrentlyPlaying = (): JSX.Element => {
     return <h1>Error on Playing</h1>;
   }
   const { song, image, artist, album, isPlaying } = currentSong;
+
+  const addSongToPlaylist = (): void => {};
+
   return (
     <div className="container__playing">
       <h4>{song}</h4>
@@ -62,6 +65,7 @@ const CurrentlyPlaying = (): JSX.Element => {
           <div></div>
         </div>
       )}
+      <button onClick={addSongToPlaylist}>Add this song to playlist</button>
     </div>
   );
 };

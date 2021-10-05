@@ -44,16 +44,6 @@ describe('App Container', () => {
   });
 
   describe('log user through token in localStorage', () => {
-    beforeAll(() => {
-      const dateNow = new Date();
-      const tokenData = {
-        token: '123456',
-        expiresIn: '3600',
-        timeSetted: dateNow.toDateString(),
-      };
-      localStorage.setItem('token', JSON.stringify(tokenData));
-    });
-
     it('should not log the user if the token is expired', () => {
       localStorage.removeItem('token');
       const dateLessHours = new Date();
@@ -61,7 +51,7 @@ describe('App Container', () => {
       const tokenData = {
         token: '123456',
         expiresIn: '3600',
-        timeSetted: dateLessHours.toDateString(),
+        timeSetted: dateLessHours.toISOString(),
       };
       localStorage.setItem('token', JSON.stringify(tokenData));
 
@@ -70,11 +60,20 @@ describe('App Container', () => {
         screen.getByText('Spotify Stalker, login to check what are you doing')
       ).toBeTruthy();
       expect(screen.getByText('Login')).toBeTruthy();
+      localStorage.removeItem('token');
     });
 
     it('should render the user based on the localStorage token', () => {
+      const dateNow = new Date();
+      const tokenData = {
+        token: '123456',
+        expiresIn: '3600',
+        timeSetted: dateNow.toISOString(),
+      };
+      localStorage.setItem('token', JSON.stringify(tokenData));
       render(<App />);
       expect(screen.getByText('Welcome')).toBeTruthy();
+      localStorage.removeItem('token');
     });
   });
 });

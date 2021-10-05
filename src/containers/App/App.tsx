@@ -3,7 +3,6 @@ import { AuthProvider } from 'context/AuthContext';
 import Dashboard from 'containers/Dashboard/Dashboard';
 import './App.scss';
 import Login from 'components/Login/Login';
-import useLocalStorage from 'core/utils/hooks/useLocalStorage';
 import { getLocalStorage, setLocalStorage } from 'core/utils/localStorage';
 interface TokenDetails {
   token: string;
@@ -12,12 +11,12 @@ interface TokenDetails {
 }
 
 const App = (): JSX.Element => {
-  const tokenDetails = getLocalStorage('token');
+  const tokenDetails: TokenDetails | undefined = getLocalStorage('token');
 
   let isLoggedIn = false;
   let accessToken = undefined;
   let error = undefined;
-  console.log(tokenDetails, ' TOKEN DETAILS');
+
   // if we have localstorage token and hasn't expired log the user directly
   if (tokenDetails && tokenDetails.timeSetted) {
     // calculate the current time and the time passed since the token was setted on local storage
@@ -50,7 +49,7 @@ const App = (): JSX.Element => {
       setLocalStorage('token', {
         token: urlToken,
         expiresIn: expiresIn || '3600',
-        timeSetted: new Date().toDateString(),
+        timeSetted: new Date().toISOString(),
       });
     }
 
