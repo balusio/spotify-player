@@ -1,21 +1,22 @@
 import { useAuthContext } from 'context/AuthContext';
+import {
+  PlaylistActions,
+  PlaylistActionsTypes,
+  SpotifySong,
+  usePlaylistContext,
+} from 'context/PlaylistContext';
 import { SPOTIFY_API } from 'core/constants';
 import useFetch from 'core/utils/hooks/useFetchAPI';
 import React, { useEffect, useState } from 'react';
 
-export interface CurrentlyPlayingProps {
-  image: string;
-  artist: string;
-  album: string;
-  song: string;
-  isPlaying: boolean;
-}
 const CurrentlyPlaying = (): JSX.Element => {
   const {
     state: { accessToken },
   } = useAuthContext();
+  const { dispatch } = usePlaylistContext();
 
-  const [currentSong, setCurrentSong] = useState<CurrentlyPlayingProps>({
+  const [currentSong, setCurrentSong] = useState<SpotifySong>({
+    id: '',
     song: '',
     image: '',
     artist: '',
@@ -36,6 +37,7 @@ const CurrentlyPlaying = (): JSX.Element => {
 
   useEffect(() => {
     setCurrentSong({
+      id: data?.item.id,
       song: data?.item?.name,
       image: data?.item.album.images[2].url,
       artist: data?.item?.artists[0].name as string,
@@ -49,7 +51,25 @@ const CurrentlyPlaying = (): JSX.Element => {
   }
   const { song, image, artist, album, isPlaying } = currentSong;
 
-  const addSongToPlaylist = (): void => {};
+  const addSongToPlaylist = (): void => {
+    dispatch({
+      type: PlaylistActionsTypes.ADD_SONG,
+      payload: {
+        playlistName: 'test playlist',
+        song: currentSong,
+      },
+    } as PlaylistActions);
+  };
+
+  const removeSongFromPlaylist = (): void => {
+    dispatch({
+      type: PlaylistActionsTypes.REMOVE_SONG,
+      payload: {
+        playlistName: 'test playlist',
+        song: currentSong,
+      },
+    } as PlaylistActions);
+  };
 
   return (
     <div className="container__playing">
@@ -66,6 +86,9 @@ const CurrentlyPlaying = (): JSX.Element => {
         </div>
       )}
       <button onClick={addSongToPlaylist}>Add this song to playlist</button>
+      <button onClick={removeSongFromPlaylist}>
+        reomve this song to playlist
+      </button>
     </div>
   );
 };

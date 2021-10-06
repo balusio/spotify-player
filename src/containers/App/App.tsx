@@ -3,7 +3,11 @@ import { AuthProvider } from 'context/AuthContext';
 import Dashboard from 'containers/Dashboard/Dashboard';
 import './App.scss';
 import Login from 'components/Login/Login';
-import { getLocalStorage, setLocalStorage } from 'core/utils/localStorage';
+import {
+  getLocalStorage,
+  removeLocalStorage,
+  setLocalStorage,
+} from 'core/utils/localStorage';
 interface TokenDetails {
   token: string;
   expiresIn: string | null;
@@ -31,6 +35,7 @@ const App = (): JSX.Element => {
       isLoggedIn = true;
     } else {
       isLoggedIn = false;
+      removeLocalStorage('token');
     }
   } else {
     // check the url params

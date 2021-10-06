@@ -1,56 +1,119 @@
+import { getLocalStorage, setLocalStorage } from 'core/utils/localStorage';
 import React, { createContext, ReactNode, useContext, useReducer } from 'react';
-
-interface SpotifySong {
+export interface SpotifySong {
+  id: string;
   image: string;
   artist: string;
   album: string;
   song: string;
   isPlaying: boolean;
 }
-interface PlaylistState {
-  playlists: 
-}
 
-enum PlaylistActions {
+export enum PlaylistActionsTypes {
   ADD_SONG = 'ADD_SONG',
   REMOVE_SONG = 'REMOVE_SONG',
-  SAVE_PLAYLIST = 'SAVE_PLAYLIST',
-  EDIT_PLAYLIST = 'EDIT_PLAYLIST',
+  ADD_PLAYLIST = 'SAVE_PLAYLIST',
+  REMOVE_PLAYLIST = 'EDIT_PLAYLIST',
 }
 
+export type PlaylistActions = {
+  type: PlaylistActionsTypes;
+  payload: {
+    playlistName: string;
+    song?: SpotifySong;
+    playlist?: string;
+  };
+};
+
+type PlaylistState = Record<string, SpotifySong[]>;
 type Dispatch = (action: PlaylistActions) => void;
 
-type PlaylistContext = {
+interface PlaylistStateContext {
   state: PlaylistState;
   dispatch: Dispatch;
-};
-interface UserProviderProps extends PlaylistState {
+}
+interface PlaylistContextProps {
   children: ReactNode;
 }
 
+const PLAYLIST_LIST_KEY = 'playlists';
+
 /**
- * Auth context is a wrapper context to log in the user and check is current status once the app
- * is initialized, also triggers the login action with the API call using the auth credentials
+ * Playlist context share between components of the playlist the state and
+ * manipulation of the playlist based on the user actions
  * @see https://kentcdodds.com/blog/how-to-use-react-context-effectively
  */
-const PlaylistContext = createContext<PlaylistContext | undefined>(undefined);
+const PlaylistContext = createContext<PlaylistStateContext | undefined>(
+  undefined
+);
 
-const AuthReducer = (state: UserState, action: PlaylistActions): UserState => {
-  switch (action) {
-    case 'login': {
-      return {
-        ...state,
-        isLoggedIn: true,
-        accessToken: '1',
-      };
+const PlaylistReducer = (
+  state: PlaylistState,
+  action: PlaylistActions
+): PlaylistState => {
+  const { type, payload } = action;
+  switch (type) {
+    case PlaylistActionsTypes.ADD_SONG: {
+      const currentPlaylist = state[payload.playlistName];
+      if (payload.song) {
+        const newState = {
+          ...state,
+          [`${payload.playlistName}`]: [payload.song, ...currentPlaylist],
+        };
+        console.log('playlsit new', newState);
+        setLocalStorage(PLAYLIST_LIST_KEY, newState);
+
+        return newState;
+      }
+      return state;
     }
-    case 'logout': {
-      return {
-        ...state,
-        isLoggedIn: false,
-        accessToken: undefined,
-      };
+
+    case PlaylistActionsTypes.REMOVE_SONG: {
+      const currentPlaylist = state[payload.playlistName];
+      if (payload.song) {
+        const newState = {
+          ...state,
+          [`${payload.playlistName}`]: currentPlaylist.filter(
+            (elem: SpotifySong) => {
+              return elem.id !== payload.song?.id;
+            }
+          ),
+        };
+        setLocalStorage(PLAYLIST_LIST_KEY, newState);
+
+        return newState;
+      }
+      return state;
     }
+
+    case PlaylistActionsTypes.ADD_PLAYLIST: {
+      if (payload.playlistName) {
+        const newState = {
+          ...state,
+          [`${payload.playlistName}`]: [],
+        };
+        setLocalStorage(PLAYLIST_LIST_KEY, newState);
+
+        return newState;
+      }
+      return state;
+    }
+
+    case PlaylistActionsTypes.REMOVE_PLAYLIST: {
+      const newState = { ...state };
+      delete newState[payload.playlistName];
+
+      if (payload.playlistName) {
+        setLocalStorage(PLAYLIST_LIST_KEY, newState);
+
+        return {
+          ...newState,
+        };
+      }
+
+      return state;
+    }
+
     default: {
       throw new Error(`Unhandled action type: ${action}`);
     }
@@ -64,17 +127,11 @@ const AuthReducer = (state: UserState, action: PlaylistActions): UserState => {
  * The auth method for spotify is "Implicit Grant Flow"
  * @see https://developer.spotify.com/documentation/general/guides/authorization-guide/
  */
-const AuthProvider = ({
-  children,
-  isLoggedIn,
-  error,
-  accessToken,
-}: UserProviderProps): JSX.Element => {
-  const [state, dispatch] = useReducer(AuthReducer, {
-    isLoggedIn: isLoggedIn,
-    error: error,
-    accessToken: accessToken,
-  });
+const PlaylistProvider = ({ children }: PlaylistContextProps): JSX.Element => {
+  const [state, dispatch] = useReducer(
+    PlaylistReducer,
+    getLocalStorage(PLAYLIST_LIST_KEY)
+  );
 
   const value = { state, dispatch };
   return (
@@ -93,4 +150,4 @@ const usePlaylistContext = () => {
   return context;
 };
 
-export { usePlaylistContext, AuthProvider, PlaylistActions };
+export { usePlaylistContext, PlaylistProvider };

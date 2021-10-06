@@ -1,20 +1,20 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import PlaylistElement from 'components/Playlist/PlaylistElement/PlaylistElement';
+import { usePlaylistContext } from 'context/PlaylistContext';
 
 const PlaylistContainer = (): JSX.Element => {
-  const [playlist, setPlaylist] = useState([]);
+  const { state } = usePlaylistContext();
 
   const playlistElements = useMemo(
     () =>
-      playlist.map((elem: any) => {
-        const { id } = elem;
+      Object.keys(state).map((elem: string, idx: number) => {
         return (
-          <div key={id}>
-            <PlaylistElement {...elem} />
+          <div key={`${elem}-${idx}`}>
+            <PlaylistElement name={elem} songs={state[elem]} />
           </div>
         );
       }),
-    [playlist]
+    [state]
   );
 
   return <>{playlistElements}</>;

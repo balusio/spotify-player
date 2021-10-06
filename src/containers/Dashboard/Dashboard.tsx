@@ -1,13 +1,18 @@
 import React from 'react';
 import CurrentlyPlaying from 'components/CurrentlyPlaying/CurrentlyPlaying';
-// import Playlist from 'components/Playlist/PlaylistContainer/PlaylistContainer';
+import Playlist from 'components/Playlist/PlaylistContainer/PlaylistContainer';
 import CreatePlaylist from 'components/CreatePlaylist/CreatePlaylist';
+import { PlaylistProvider } from 'context/PlaylistContext';
 const Dashboard = () => {
   return (
     <>
       <h1> Welcome </h1>
-      <CurrentlyPlaying />
-      <CreatePlaylist />
+      <PlaylistProvider>
+        <CurrentlyPlaying />
+        <CreatePlaylist />
+        <p>playlist:</p>
+        <Playlist />
+      </PlaylistProvider>
     </>
   );
 };

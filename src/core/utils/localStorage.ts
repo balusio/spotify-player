@@ -8,3 +8,8 @@ export const getLocalStorage = (key: string): any => {
   // Parse stored json or if none return initialValue
   return item ? JSON.parse(item) : undefined;
 };
+
+export const removeLocalStorage = (key: string): any => {
+  // remove from storage by key
+  window.localStorage.removeItem(key);
+};
