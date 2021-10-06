@@ -7,14 +7,8 @@ describe('App Container', () => {
     'playlists';
   });
   it('should healthcheck the app container not logged in', () => {
-    const { container } = render(
-      <>
-        <App />
-      </>
-    );
-    expect(
-      container.querySelector(`[data-testid="app-container"]`)
-    ).toBeInTheDocument();
+    render(<App />);
+
     expect(screen.getByText('Spotify Stalker')).toBeTruthy();
     expect(screen.getByText('Login')).toBeTruthy();
   });
@@ -40,7 +34,7 @@ describe('App Container', () => {
 
     it('should be logged in with the param credentials, and continue to the Dashboard', () => {
       render(<App />);
-      expect(screen.getByText('Welcome')).toBeTruthy();
+      expect(screen.getByText('Now Playing:')).toBeTruthy();
     });
   });
 
@@ -71,7 +65,7 @@ describe('App Container', () => {
       };
       localStorage.setItem('token', JSON.stringify(tokenData));
       render(<App />);
-      expect(screen.getByText('Welcome')).toBeTruthy();
+      expect(screen.getByText('Now Playing:')).toBeTruthy();
       localStorage.removeItem('token');
     });
   });
