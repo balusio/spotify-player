@@ -1,5 +1,5 @@
+import React from 'react';
 import { usePlaylistContext } from 'context/PlaylistContext';
-import React, { useState, useEffect } from 'react';
 
 import './CurrentlyPlaying.scss';
 

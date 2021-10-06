@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CurrentlyPlaying from 'components/CurrentlyPlaying/CurrentlyPlaying';
 import Playlist from 'components/Playlist/PlaylistContainer/PlaylistContainer';
 import CreatePlaylist from 'components/CreatePlaylist/CreatePlaylist';
