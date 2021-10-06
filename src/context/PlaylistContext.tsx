@@ -130,7 +130,7 @@ const PlaylistReducer = (
 const PlaylistProvider = ({ children }: PlaylistContextProps): JSX.Element => {
   const [state, dispatch] = useReducer(
     PlaylistReducer,
-    getLocalStorage(PLAYLIST_LIST_KEY)
+    getLocalStorage(PLAYLIST_LIST_KEY) || {}
   );
 
   const value = { state, dispatch };
