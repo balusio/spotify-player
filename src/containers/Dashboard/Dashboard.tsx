@@ -14,7 +14,6 @@ const Dashboard = () => {
           <div className="dashboard__title dashboard--space">
             <img src={SpotifyLogo} className="dashboard__logo" />
             <h1>Now Playing:</h1>
-
             <div className="divider divider--horizontal" />
           </div>
           <div className="dashboard--space">

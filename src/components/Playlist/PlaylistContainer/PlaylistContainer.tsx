@@ -5,6 +5,7 @@ import { usePlaylistContext } from 'context/PlaylistContext';
 const PlaylistContainer = (): JSX.Element => {
   const { state } = usePlaylistContext();
 
+  // avoid unnecesary re renders from other elements, check only if the playlist are updated
   const playlistElements = useMemo(
     () =>
       Object.keys(state).map((elem: string, idx: number) => {

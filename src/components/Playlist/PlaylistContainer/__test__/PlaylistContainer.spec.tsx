@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import PlaylistContainer from '../PlaylistContainer';
@@ -9,19 +9,19 @@ import {
   usePlaylistContext,
 } from 'context/PlaylistContext';
 
-const mockPlaylist = {
-  jorge: [
-    {
-      id: '1FvDJ9KGxcqwv1utyPL3JZ',
-      song: 'This Charming Man - 2011 Remaster',
-      image: 'https://i.scdn.co/image/ab67616d00001e02a09b231129ab1cb1a6efc57f',
-      artist: 'The Smiths',
-      album: 'The Smiths',
-      isPlaying: true,
-    },
-  ],
-  test: [],
-};
+// const mockPlaylist = {
+//   jorge: [
+//     {
+//       id: '1FvDJ9KGxcqwv1utyPL3JZ',
+//       song: 'This Charming Man - 2011 Remaster',
+//       image: 'https://i.scdn.co/image/ab67616d00001e02a09b231129ab1cb1a6efc57f',
+//       artist: 'The Smiths',
+//       album: 'The Smiths',
+//       isPlaying: true,
+//     },
+//   ],
+//   test: [],
+// };
 
 const ComponentTriggerLocal = () => {
   const { dispatch } = usePlaylistContext();

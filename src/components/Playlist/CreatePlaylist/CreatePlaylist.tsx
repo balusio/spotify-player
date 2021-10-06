@@ -7,9 +7,13 @@ import React, { ChangeEvent, useState } from 'react';
 
 import './CreatePlaylist.scss';
 
+/**
+ * Creates a playlist based on the user input and dispatch the action to the Playlist Context
+ */
 const CreatePlaylist = () => {
   const [playlistName, setPlaylistName] = useState<string>('');
   const { dispatch } = usePlaylistContext();
+
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setPlaylistName(value);

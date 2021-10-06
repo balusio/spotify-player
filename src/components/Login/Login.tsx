@@ -10,6 +10,8 @@ const Login = () => {
   useEffect(() => {
     setAnimationIn('animate--startup--in');
   }, []);
+
+  // make the permisions string query separated and pass it to the AUTH spotify redirect url
   const permissions = [...userPersmissions].join(',');
   const loginPage = `${SPOTIFY_AUTH_URL}?client_id=${CLIENT_ID}&response_type=token&scope=${permissions}&redirect_uri=http://localhost:4200/logged&state=123456`;
 
