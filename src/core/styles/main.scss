@@ -1,11 +1,35 @@
 @import 'modern-normalize.css';
 @import 'variables.scss';
 
+html,
 body {
   background-color: $black-color;
   font-family: $font-family;
   color: $white-color;
   font-size: 16px;
+  width: 100%;
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+  color: $primary-color;
+}
+
+.container,
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .button {
@@ -16,6 +40,7 @@ body {
   padding: 1rem 2rem;
   text-decoration: none;
   transition: all 0.1s;
+  border: 0;
 }
 
 .button__principal {
@@ -28,4 +53,31 @@ body {
   &:visited {
     color: inherit;
   }
+}
+
+.animate--startup {
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 1.5s;
+  position: relative;
+  top: 10%;
+  opacity: 0;
+}
+
+.animate--startup--in {
+  top: 0%;
+  opacity: 1;
+}
+
+.animate--startup--out {
+  top: 10%;
+  opacity: 0;
+}
+
+.divider {
+  background-color: $white-color;
+}
+
+.divider--horizontal {
+  width: 100%;
+  height: 1px;
+  margin: 10px 0;
 }

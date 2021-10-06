@@ -1,0 +1,98 @@
+@import '../../core/styles/variables.scss';
+
+.playing__container {
+  display: flex;
+  flex-direction: row;
+}
+
+.playing_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 2rem;
+}
+.playing__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .button {
+    width: 45%;
+  }
+}
+
+.playing__text {
+  h2 {
+    color: $white-color;
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+@keyframes equalize {
+  0% {
+    height: 0%;
+  }
+  50% {
+    height: 35%;
+  }
+  100% {
+    height: 0%;
+  }
+}
+
+.playing--animation {
+  display: flex;
+  max-width: 35px;
+  height: 80px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  div:first-child {
+    width: 10px;
+    height: 50%;
+    background-color: $primary-color;
+    animation-name: equalize;
+    animation-duration: 0.9s;
+    animation-iteration-count: infinite;
+    transition: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  }
+  div:last-child {
+    width: 10px;
+    height: 20%;
+    background-color: $primary-color;
+    animation-name: equalize;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    transition: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  }
+  div:nth-child(2) {
+    width: 10px;
+    height: 20%;
+    background-color: $primary-color;
+    animation-name: equalize;
+    animation-duration: 0.7s;
+    animation-iteration-count: infinite;
+    transition: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  }
+}
+
+.select__playlist__container {
+  position: absolute;
+  width: 200px;
+  z-index: 100;
+  background: $black-color;
+  border: 1px solid $white-color;
+  padding: 10px;
+  top: 50%;
+  overflow-y: scroll;
+  padding: 0 0 20px 0;
+  &::before {
+    content: '\25B2';
+    color: $white-color;
+    top: -8%;
+    position: absolute;
+  }
+}

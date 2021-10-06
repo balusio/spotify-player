@@ -3,6 +3,9 @@ import { render, screen } from '@testing-library/react';
 
 import App from '../App';
 describe('App Container', () => {
+  beforeAll(() => {
+    'playlists';
+  });
   it('should healthcheck the app container not logged in', () => {
     const { container } = render(
       <>
@@ -12,9 +15,7 @@ describe('App Container', () => {
     expect(
       container.querySelector(`[data-testid="app-container"]`)
     ).toBeInTheDocument();
-    expect(
-      screen.getByText('Spotify Stalker, login to check what are you doing')
-    ).toBeTruthy();
+    expect(screen.getByText('Spotify Stalker')).toBeTruthy();
     expect(screen.getByText('Login')).toBeTruthy();
   });
 
@@ -56,9 +57,7 @@ describe('App Container', () => {
       localStorage.setItem('token', JSON.stringify(tokenData));
 
       render(<App />);
-      expect(
-        screen.getByText('Spotify Stalker, login to check what are you doing')
-      ).toBeTruthy();
+      expect(screen.getByText('Spotify Stalker')).toBeTruthy();
       expect(screen.getByText('Login')).toBeTruthy();
       localStorage.removeItem('token');
     });

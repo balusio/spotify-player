@@ -54,6 +54,7 @@ const PlaylistReducer = (
   const { type, payload } = action;
   switch (type) {
     case PlaylistActionsTypes.ADD_SONG: {
+      console.log(payload, ' added song');
       const currentPlaylist = state[payload.playlistName];
       if (payload.song) {
         const newState = {

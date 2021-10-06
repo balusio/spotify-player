@@ -1,0 +1,49 @@
+@import '../../../core/styles/variables.scss';
+.playlist___element {
+  overflow: hidden;
+  position: relative;
+  margin: 1rem 0;
+
+  h2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    background-color: $primary-color;
+    color: $white-color;
+    margin: 0;
+  }
+  .playlist__element_internal {
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: row;
+    min-height: 150px;
+    position: relative;
+    bottom: -15px;
+  }
+}
+
+.playlist__song {
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  img {
+    width: 120px;
+  }
+  .playlist__song__text {
+    color: $white-color;
+    padding: 0;
+    line-height: 1em;
+    margin: 5px;
+    font-size: 0.7rem;
+  }
+  .playlist__song__text--title {
+    font-weight: bold;
+  }
+  span {
+    font-size: 0.7rem;
+  }
+}

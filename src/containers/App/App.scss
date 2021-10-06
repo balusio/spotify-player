@@ -1,9 +1,10 @@
 @import '../../core/styles/variables.scss';
 
-.container{
+.app_container {
   background-color: $black-color;
   width: 100%;
-  padding: 20px;
+  height: 100%;
+  display: flex;
   h1 {
     color: $primary-color;
   }

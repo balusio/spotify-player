@@ -64,13 +64,15 @@ const App = (): JSX.Element => {
   }
 
   return (
-    <AuthProvider
-      isLoggedIn={isLoggedIn}
-      accessToken={accessToken}
-      error={error}
-    >
-      {isLoggedIn ? <Dashboard /> : <Login />}
-    </AuthProvider>
+    <div className="app_container">
+      <AuthProvider
+        isLoggedIn={isLoggedIn}
+        accessToken={accessToken}
+        error={error}
+      >
+        {isLoggedIn ? <Dashboard /> : <Login />}
+      </AuthProvider>
+    </div>
   );
 };
 

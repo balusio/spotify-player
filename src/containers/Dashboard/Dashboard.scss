@@ -1,0 +1,57 @@
+@import '../../core/styles/variables.scss';
+
+.dashboard__container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  position: relative;
+  .dashboard__now-playing {
+    width: 100%;
+  }
+  .dashboard__title {
+    width: 100%;
+    align-self: flex-start;
+    h1 {
+      color: $white-color;
+      font-size: 2.5rem;
+    }
+  }
+  .dashboard__logo {
+    max-width: 250px;
+    width: 100%;
+  }
+
+  .dashboard--space {
+    padding: 20px;
+  }
+
+  .dashboard__playlist-container {
+    border-left: 1px solid $white-color;
+    height: 100%;
+    position: absolute;
+    right: -100%;
+    height: 100%;
+    right: 0;
+    max-width: 35%;
+    background: $black-color;
+    transition: all 0.1s linear;
+    overflow-y: scroll;
+    // transform: translateX(100%);
+  }
+
+  .dashboard__playlist-container--open {
+    transform: translateX(0);
+  }
+  .playing__actions {
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: space-between;
+    button {
+      margin: 1rem;
+      font-size: 0.6rem;
+      line-height: 0.8rem;
+      padding: 0.3rem 0.5rem;
+    }
+  }
+}

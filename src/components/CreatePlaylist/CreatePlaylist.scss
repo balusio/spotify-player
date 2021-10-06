@@ -1,0 +1,35 @@
+@import '../../core/styles/variables.scss';
+
+.create-playlist__container {
+  display: flex;
+  flex-direction: row;
+  padding: 2rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-playlist__input {
+  background: inherit;
+  border: inherit;
+  border-bottom: 1px solid $white-color;
+  width: 89%;
+  color: $primary-color;
+  font-family: $font-family;
+  font-weight: 700;
+  font-size: 2rem;
+  padding: 1rem;
+  &:focus {
+    border: inherit;
+    outline: none;
+    border-bottom: 1px solid $white-color;
+  }
+}
+
+.create-playlist__button {
+  font-size: 0.5rem;
+  background-color: inherit;
+  border: none;
+
+  border-radius: 50px;
+  color: white;
+}
