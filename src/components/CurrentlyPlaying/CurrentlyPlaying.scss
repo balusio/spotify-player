@@ -85,14 +85,23 @@
   z-index: 100;
   background: $black-color;
   border: 1px solid $white-color;
+  overflow-y: scroll;
+  height: 200px;
+  padding-bottom: 30px;
   padding: 10px;
   top: 50%;
-  overflow-y: scroll;
   padding: 0 0 20px 0;
   &::before {
     content: '\25B2';
     color: $white-color;
     top: -8%;
     position: absolute;
+  }
+
+  .select__playlist__navigate {
+    position: inherit;
+
+    display: flex;
+    flex-direction: column-reverse;
   }
 }

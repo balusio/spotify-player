@@ -17,7 +17,15 @@ const PlaylistContainer = (): JSX.Element => {
     [state]
   );
 
-  return <>{playlistElements}</>;
+  return (
+    <div className="playlist__list__container">
+      {playlistElements.length > 0 ? (
+        playlistElements
+      ) : (
+        <p>You dont have any playlist, Lets create one</p>
+      )}
+    </div>
+  );
 };
 
 export default PlaylistContainer;

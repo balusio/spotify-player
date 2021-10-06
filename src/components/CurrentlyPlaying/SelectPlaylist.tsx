@@ -6,6 +6,13 @@ import './CurrentlyPlaying.scss';
 interface PlaylistSelectorProps {
   selectPlaylist: (elem: string) => void;
 }
+
+/**
+ *
+ * Playlist selector shows the current playlist on currentlyPlaying scree, so the user is capable to check to what playlist
+ * show or hide his song
+ * @returns
+ */
 const PlaylistSelector = ({ selectPlaylist }: PlaylistSelectorProps) => {
   const { state } = usePlaylistContext();
 
@@ -16,12 +23,14 @@ const PlaylistSelector = ({ selectPlaylist }: PlaylistSelectorProps) => {
   return (
     <div className="select__playlist__container">
       <p>Select Playlist:</p>
-      {Object.keys(state).map((elem: string, idx: number) => (
-        <div key={idx}>
-          <span>{elem}</span>
-          <button onClick={() => setPlaylistValue(elem)}> + </button>
-        </div>
-      ))}
+      <div className="select__playlist__navigate">
+        {Object.keys(state).map((elem: string, idx: number) => (
+          <div key={idx}>
+            <span>{elem}</span>
+            <button onClick={() => setPlaylistValue(elem)}> + </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

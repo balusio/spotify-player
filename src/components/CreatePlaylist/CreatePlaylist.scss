@@ -23,6 +23,9 @@
     outline: none;
     border-bottom: 1px solid $white-color;
   }
+  &::placeholder {
+    font-size: 1.5rem;
+  }
 }
 
 .create-playlist__button {
